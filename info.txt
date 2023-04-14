@@ -1,0 +1,15 @@
+
+dotnet new webapi -o Backend
+
+dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
+
+dotnet tool install --global dotnet-ef
+dotnet tool update --global dotnet-ef
+
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+dotnet ef migrations add MigracionInicial
+
+dotnet ef database update
