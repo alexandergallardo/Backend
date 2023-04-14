@@ -9,7 +9,7 @@
 - OrdenCompraItems 
 
 ## MIGRAR MODELOS
-- dotnet ef migrations add MigracionInicial (Si no existe la carpeta Migracion, usar este comando para generarlas)
+- dotnet ef migrations add MigracionInicial (Si no existe la carpeta Migrations, usar este comando para generarlas)
 - dotnet ef database update  ( Llevar el modelo al motor d ebase de datos sql server)
 
 ## TAREAS REALZIADAS
