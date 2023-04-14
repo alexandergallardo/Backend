@@ -20,7 +20,7 @@
 - Uso de Inyección de Dependencias
 
 ## TAREAS PENDIENTES
-- Pendiente por ajustar: AL crear orden de comrpa validar que exista el cliente
-- Al crar Item de la orden d ecompra, validar que el producto exista
+- Pendiente por ajustar: AL crear orden de compra validar que exista el cliente
+- Al crear Item de la orden d ecompra, validar que el producto exista
 - Pendiente desarrollar Front End en Angular
 - Pendiente desplegar en AZURE o AWS
