@@ -48,6 +48,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy("AllowAngularOrigins",
+        builder => builder.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+       // .AllowCredentials()
+        );
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => c.UseDateOnlyTimeOnlyStringConverters());
@@ -59,6 +69,8 @@ builder.Services.AddSwaggerGen(c => c.UseDateOnlyTimeOnlyStringConverters());
 });*/
 
 var app = builder.Build();
+
+app.UseCors("AllowAngularOrigins");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

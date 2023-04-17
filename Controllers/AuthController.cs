@@ -23,22 +23,22 @@ namespace Backend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UsuarioRegisterDto usuarioDto)
         {
-            usuarioDto.NombreUsuario = usuarioDto.NombreUsuario.ToLower();
+            usuarioDto.userName = usuarioDto.userName.ToLower();
 
-            if(await _repo.ExisteUsuario(usuarioDto.NombreUsuario))
+            if(await _repo.ExisteUsuario(usuarioDto.userName))
                 return BadRequest("El nombre de usuario no esta disponible.");
 
             var usuarioNuevo = new Usuario();
 
-            usuarioNuevo.NombreUsuario = usuarioDto.NombreUsuario;
+            usuarioNuevo.NombreUsuario = usuarioDto.userName;
             usuarioNuevo.Estado        = true;
 
-            var usuarioCreado = await _repo.Registrar(usuarioNuevo, usuarioDto.Password);
+            var usuarioCreado = await _repo.Registrar(usuarioNuevo, usuarioDto.passWord);
 
             var usuario = new UsuarioResponseDto();
 
-            usuario.Id = usuarioCreado.Id;
-            usuario.NombreUsuario = usuarioCreado.NombreUsuario;
+            usuario.userId = usuarioCreado.Id;
+            usuario.userName = usuarioCreado.NombreUsuario;
 
             return Ok(usuario);    
         } 
@@ -46,25 +46,32 @@ namespace Backend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UsuarioLoginDto usuarioLoginDto)
         {
-            var usuarioLogin = await _repo.Login(usuarioLoginDto.NombreUsuario, usuarioLoginDto.Password);
+            var usuarioLogin = await _repo.Login(usuarioLoginDto.userName, usuarioLoginDto.passWord);
 
             if(usuarioLogin == null)
-                return Unauthorized(new {
-                    Message = "Unauthorized",
-                    code    = 401
+                return Ok(new {
+                    status = "Error",
+                    code    = "401",
+                    message = "User Name o Password incorrecto",
+                    data  = new {}
                 });
             
             var usuarioDto = new UsuarioResponseDto();
 
-            usuarioDto.Id = usuarioLogin.Id;
-            usuarioDto.NombreUsuario = usuarioLogin.NombreUsuario;
+            usuarioDto.userId = usuarioLogin.Id;
+            usuarioDto.userName = usuarioLogin.NombreUsuario;
 
             var tokenNew = _tokenService.CreateToken(usuarioLogin);
             
             return Ok(new {
-                estado = true,
-                token = tokenNew,
-                usuario = usuarioDto
+                status = "Ok",
+                code = "200",
+                message = "Autenticación satisfactoria",
+                data  = new {
+                    token = tokenNew,
+                    usuario = usuarioDto
+                }
+             
             });
         }           
     }
