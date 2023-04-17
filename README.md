@@ -18,9 +18,10 @@
 - JWT para asegurar las api
 - Swagger para documentacion de API
 - Uso de Inyección de Dependencias
+- Fron End Angular: Login / Error Login
 
 ## TAREAS PENDIENTES
 - Pendiente por ajustar: AL crear orden de compra validar que exista el cliente
 - Al crear Item de la orden d ecompra, validar que el producto exista
-- Pendiente desarrollar Front End en Angular
+- Pendiente desarrollar Front End en Angular: Selecionar producto, carrito de compras, validar compra y compra exitosa
 - Pendiente desplegar en AZURE o AWS
